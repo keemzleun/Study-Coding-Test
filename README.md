@@ -12,4 +12,4 @@
 ---
 ## 프로그래머스
 ### 코딩 기초 트레이닝
-- [글자 이어 문자열 만들기](src/Programmers/글자이어붙여문자열만들기/Solution.java)
+- [글자 이어 붙여 문자열 만들기](src/Programmers/글자이어붙여문자열만들기/Solution.java)
