@@ -1,6 +1,6 @@
-package Programmers.글자이어붙여문자열만들기;
+package Programmers;
 
-class Solution {
+public class 글자이어붙여문자열만들기 {
     public String solution(String my_string, int[] index_list) {
         String answer = "";
         for (int i=0; i<index_list.length; i++) {

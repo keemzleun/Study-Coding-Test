@@ -1,9 +1,9 @@
-package Programmers.명예의전당;
+package Programmers;
 
 import java.util.Arrays;
 import java.util.PriorityQueue;
 
-public class Solution {
+public class 명예의전당 {
     public static void main(String[] args) {
         int k = 3;
         int[] score = {10, 100, 20, 150, 1, 100, 200};
