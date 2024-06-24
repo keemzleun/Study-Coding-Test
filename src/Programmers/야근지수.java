@@ -22,17 +22,17 @@ public class 야근지수 {
             }
         }
         int temp[] = new int[work.length];
-        int sum = 0;
+        long sum = 0;
         for (int i = 0; i < work.length; i++) {
             if (pq.peek() >= 0){
-                sum += (int)Math.pow(pq.poll(), 2);
+                sum += (long)Math.pow(pq.poll(), 2);
             } else {
                 sum += 0;
             }
         }
         System.out.println(sum);
 
-        // 맞는데 효율성이 망함.
+        // 맞는데 효율성이 망함 -> long 처리
     }
 }
 
