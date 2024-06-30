@@ -6,40 +6,33 @@ import java.util.Scanner;
 public class Boj1931 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int result = 0;
+        int N = sc.nextInt();
 
-        int count = sc.nextInt(); sc.nextLine();
-        int meeting[][] = new int[count][2];
+        int[][] time = new int[N][2];
 
-        for(int i = 0; i<count; i++) {
-            meeting[i][0] = sc.nextInt();
-            meeting[i][1] = sc.nextInt();
+        for(int i = 0; i < N; i++) {
+            time[i][0] = sc.nextInt();	// 시작
+            time[i][1] = sc.nextInt();	// 종료
         }
 
-
-        // 끝나는 시간 순으로 정렬 (오름차순)
-        Arrays.sort(meeting, (o1, o2) -> {
-            // 끝나는 시간이 같으면 시작시간이 빠른 순으로 정렬
-            if(o1[1] == o2[1]) {
-                return Integer.compare(o1[0], o2[0]);
-            } else {
-                return Integer.compare(o1[1], o2[1]);
+        // 끝나는 시간을 기준으로 정렬하기 위해 compare 재정의
+        Arrays.sort(time, (o1, o2) -> {
+            if(o1[1] == o2[1]) {    //종료시간이 같을 경우 시작 시간이 빠른 순
+                return o1[0] - o2[0];
             }
+            return o1[1] - o2[1];   // 종료 시간이 빠른 순
         });
 
-
-        int endTime = meeting[0][1]; // 가장 빨리 끝나는 시간
-        result++;
-
-        for(int i =  1; i<count; i++) {
-            if(meeting[i][0] >= endTime ) {
-                endTime = meeting[i][1];
-                result++;
-            } else {
-                continue;
+        int count = 0;
+        int prev_end_time = 0;
+        for(int i = 0; i < N; i++) {
+            // 직전 종료시간이 다음 회의 시작 시간보다 작거나 같다면 갱신
+            if(prev_end_time <= time[i][0]) {
+                prev_end_time = time[i][1];
+                count++;
             }
         }
-
-        System.out.println(result);
+        System.out.println(count);
     }
+
 }
