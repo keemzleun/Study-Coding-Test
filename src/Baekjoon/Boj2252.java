@@ -34,14 +34,14 @@ public class Boj2252 {
             }
         }
         while(!answer.isEmpty()){
-            int temp = answer.poll();
-            System.out.print(temp + " ");
-            for(int next : adj.get(temp)){
-                in_degree[next]--;
-                if (in_degree[next] == 0){
-                    answer.add(next);
-                }
+        int temp = answer.poll();
+        System.out.print(temp + " ");
+        for(int next : adj.get(temp)){
+            in_degree[next]--;
+            if (in_degree[next] == 0){
+                answer.add(next);
             }
         }
     }
+}
 }
