@@ -8,6 +8,7 @@ import java.util.StringTokenizer;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
         int N = Integer.parseInt(br.readLine());
         StringTokenizer st = new StringTokenizer(br.readLine());
         int[] A = new int[N];
@@ -18,34 +19,35 @@ public class Main {
 
         int M = Integer.parseInt(br.readLine());
         st = new StringTokenizer(br.readLine());
-        int[] arrM = new int[M];
+        StringBuilder sb = new StringBuilder();
+        
         for (int i = 0; i < M; i++) {
-            arrM[i] = Integer.parseInt(st.nextToken());
+            int target = Integer.parseInt(st.nextToken());
+            if (binarySearch(A, target)) {
+                sb.append(1).append("\n");
+            } else {
+                sb.append(0).append("\n");
+            }
         }
 
-        for (int i = 0; i < M; i++) {
-            int low = 0;
-            int high = A.length - 1;
-            boolean found = false;
+        System.out.println(sb);
+    }
 
-            while (low <= high){
-                int mid = (low + high) / 2;
-                if (A[mid] == arrM[i]) {
-                    System.out.println(1);
-                    found = true;
-                    break;
-                } else if (A[mid] < arrM[i]) {
-                    low = mid + 1; // 오른쪽 탐색
-                } else {
-                    high = mid - 1; // 왼쪽 탐색
-                }
+    static boolean binarySearch(int[] A, int target) {
+        int low = 0;
+        int high = A.length - 1;
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+
+            if (A[mid] == target) {
+                return true;
+            } else if (A[mid] < target) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
             }
-
-            if (!found) {
-                System.out.println(0); // 값을 찾지 못한 경우
-            }
-
         }
-
+        return false;
     }
 }
