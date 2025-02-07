@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 // 배열 합치기
@@ -11,21 +10,33 @@ public class Main {
         StringTokenizer st = new StringTokenizer(br.readLine());
         int N = Integer.parseInt(st.nextToken());
         int M = Integer.parseInt(st.nextToken());
-        int[] Array = new int[N+M];
+
+        int[] A = new int[N];
+        int[] B = new int[M];
 
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < N; i++) {
-            Array[i] = Integer.parseInt(st.nextToken());
+            A[i] = Integer.parseInt(st.nextToken());
         }
         st = new StringTokenizer(br.readLine());
-        for (int i = N; i < N+M; i++) {
-            Array[i] = Integer.parseInt(st.nextToken());
+        for (int i = 0; i < M; i++) {
+            B[i] = Integer.parseInt(st.nextToken());
         }
-        Arrays.sort(Array);
+
         StringBuilder sb = new StringBuilder();
-        for (int num : Array) {
-            sb.append(num).append(" ");
+        int i = 0, j = 0;
+
+        while (i < N && j < M) {
+            if (A[i] <= B[j]) {
+                sb.append(A[i++]).append(" ");
+            } else {
+                sb.append(B[j++]).append(" ");
+            }
         }
-        System.out.println(sb.toString().trim());
+
+        while (i < N) sb.append(A[i++]).append(" ");
+        while (j < M) sb.append(B[j++]).append(" ");
+
+        System.out.println(sb);
     }
 }
