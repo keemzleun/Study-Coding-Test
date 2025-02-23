@@ -3,28 +3,35 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
+// 햄버거 분배
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int N = Integer.parseInt(st.nextToken());
-        int K = Integer.parseInt(st.nextToken());
-        char[] arr = br.readLine().toCharArray();
-        boolean[] visit = new boolean[N];
 
-        int answer = 0;
-        for (int i = 0; i < N; i++) {
-            if (arr[i] == 'P') {
-                for (int j = i - K; j <= i + K; j++) {
-                    if (0 <= j && j < N && arr[j] == 'H' && !visit[j]) {
-                        visit[j] = true;
-                        answer++;
+        int n = Integer.parseInt(st.nextToken());
+        int k = Integer.parseInt(st.nextToken());
+
+        String s = br.readLine();
+        char[] arr = new char[n];
+        arr = s.toCharArray();
+
+        boolean[] visited = new boolean[n];
+        int count = 0;
+        for (int i = 0; i < n; i++) {
+            if (arr[i] == 'P'){
+                for (int j = -k; j <= k; j++) {
+                    if (i+j >= n) break;
+                    if (i+j < 0) continue;
+
+                    if (arr[i+j] == 'H' && visited[i+j] == false){
+                        visited[i+j] = true;
+                        count++;
                         break;
                     }
                 }
             }
         }
-
-        System.out.println(answer);
+        System.out.println(count);
     }
 }
