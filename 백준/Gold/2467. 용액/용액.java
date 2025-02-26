@@ -11,16 +11,16 @@ public class Main {
 
         int start = 0;
         int end = n-1;
-        int[] arr = new int[n];
+        long[] arr = new long[n];
         StringTokenizer st = new StringTokenizer(br.readLine());
         for (int i = 0; i < n; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
+            arr[i] = Long.parseLong(st.nextToken());
         }
-        int min = Integer.MAX_VALUE;
-        int a = 0;
-        int b = 0;
+        Long min = Long.MAX_VALUE;
+        long a = 0;
+        long b = 0;
         while (start < end){
-            int sum = arr[start] + arr[end];
+            long sum = arr[start] + arr[end];
 
             if (Math.abs(sum) < min) {
                 min = Math.abs(sum);
