@@ -1,12 +1,11 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.StringTokenizer;
 
-// 순열 사이클
 public class Main {
+    static int[] arr;
+    static boolean[] visited;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
@@ -15,8 +14,8 @@ public class Main {
         for (int i = 0; i < t; i++) {
             int n = Integer.parseInt(br.readLine());
 
-            int[] arr = new int[n + 1];
-            boolean[] visited = new boolean[n + 1];
+            arr = new int[n + 1];
+            visited = new boolean[n + 1];
 
             StringTokenizer st = new StringTokenizer(br.readLine());
             for (int j = 1; j <= n; j++) {
@@ -24,32 +23,22 @@ public class Main {
             }
 
             int count = 0;
-
-            for (int j = 1; j <= n ; j++) {
+            for (int j = 1; j <= n; j++) {
                 if (!visited[j]){
-                    bfs(arr, j, visited);
+                    dfs(j);
                     count++;
                 }
             }
             sb.append(count).append("\n");
         }
-        System.out.print(sb);
+        System.out.println(sb);
     }
-
-    static void bfs(int[] arr, int start, boolean[] visited) {
-        Queue<Integer> queue = new LinkedList<>();
-
-        queue.add(start);
+    static void dfs(int start){
         visited[start] = true;
+        int next = arr[start]; // 현재 노드가 가리키는 다음 노드
 
-        while (!queue.isEmpty()) {
-            int x = queue.poll();
-            int next = arr[x];
-
-            if (!visited[next]) {
-                visited[next] = true;
-                queue.add(next);
-            }
+        if (!visited[next]){  // 다음 노드를 방문하지 않았다면 계속 탐색
+            dfs(next);
         }
     }
 }
