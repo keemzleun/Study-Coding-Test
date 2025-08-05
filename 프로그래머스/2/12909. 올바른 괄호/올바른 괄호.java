@@ -1,20 +1,18 @@
-import java.util.Stack;
 class Solution {
-    public boolean solution(String s){
-        Stack<Character> stack = new Stack<>();
-        for (char c : s.toCharArray()) {
-            if (c == '(') {
-                stack.push(c);
-            } else {
+    boolean solution(String s) {
+        int count = 0;
 
-                if (stack.isEmpty()) {
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') {
+                count++;
+            } else {
+                count--;
+
+                if (count < 0) {
                     return false;
                 }
-                stack.pop(); 
             }
         }
-
-        return stack.isEmpty();
+        return count == 0;
     }
-    
 }
