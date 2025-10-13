@@ -22,25 +22,21 @@ class Solution {
             students[l]--;
         }
         
-        // 체육복 빌려주기
-        // 최대한 앞의 학생에게 빌려주도록 하기
-        for(int i = 1; i <= n; i++){
-            if (students[i] == 0){
-                if (i > 1 && students[i-1] == 2){
-                    students[i]++;
+        for (int i = 1; i <= n; i++){
+            if (students[i] < 1 ){
+                if (i > 1 && students[i-1] > 1){
                     students[i-1]--;
-                } else if (i < n && students[i+1] == 2){
                     students[i]++;
+                } else if (i < n && students[i+1] > 1){
                     students[i+1]--;
+                    students[i]++;
                 }
             }
         }
         
         int answer = 0;
-        for(int i = 1; i<=n; i++){
-            if (students[i] > 0){
-                answer++;
-            }
+        for (int s : students){
+            if (s >= 1) answer++;
         }
         
         return answer;
