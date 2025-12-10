@@ -1,16 +1,17 @@
 import java.util.*;
 
 public class Solution {
-    public int[] solution(int []arr) {
-       Deque<Integer> dq = new LinkedList<>();
-        for(int i : arr){
-            if (dq.isEmpty()){
-                dq.add(i);
-            } else {
-                if (dq.peekLast() != i) dq.add(i);
+    public ArrayList<Integer> solution(int []arr) {
+        ArrayList<Integer> answer = new ArrayList<>();
+        
+        int front = arr[0];
+        answer.add(front);
+        for (int i=1; i<arr.length; i++){
+            if (front != arr[i]){
+                front = arr[i];
+                answer.add(arr[i]);
             }
         }
-        int[] answer = dq.stream().mapToInt(Integer::intValue).toArray();
         return answer;
     }
 }
