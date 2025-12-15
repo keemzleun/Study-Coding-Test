@@ -2,29 +2,28 @@ import java.util.*;
 
 class Solution {
     public int[] solution(int[] progresses, int[] speeds) {
-        Queue<Integer>  q = new LinkedList<>();
-
-        for (int i = 0; i < progresses.length; i++) {
-            int remaining = 100 - progresses[i];    // 남은 작업량
-            int days = remaining / speeds[i];       // 소요일수
-            if (remaining % speeds[i] != 0) days++;
-            q.offer(days);
+        Queue<Integer> dayQ = new LinkedList<>();
+    
+        for (int i = 0; i < progresses.length; i++){
+            int remaining = 100 - progresses[i];
+            int days = (int) Math.ceil((double)remaining/speeds[i]);
+            dayQ.offer(days);
         }
-
-        ArrayList<Integer> deployments = new ArrayList<>();
-
-        while(!q.isEmpty()){
-            int first = q.poll();
-            int count = 1;
-
-            while(!q.isEmpty() && q.peek() <= first){
-                q.poll();
-                count++;
+        
+        List<Integer> list = new ArrayList<>();
+        
+        while(!dayQ.isEmpty()){
+            int max = dayQ.poll();
+            int deploy = 1;
+            
+            while (!dayQ.isEmpty() && dayQ.peek() <= max){
+                dayQ.poll();
+                deploy++;
             }
-
-            deployments.add(count);
+            
+            list.add(deploy);
         }
-
-        return deployments.stream().mapToInt(Integer::intValue).toArray();
+        
+        return list.stream().mapToInt(i -> i).toArray();
     }
 }
