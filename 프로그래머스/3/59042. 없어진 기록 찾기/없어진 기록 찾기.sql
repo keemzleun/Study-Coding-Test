@@ -1,0 +1,13 @@
+-- 코드를 입력하세요
+-- INS에는 없고, OUT에만 있는 데이터 찾기
+SELECT
+    O.ANIMAL_ID,
+    O.NAME
+FROM
+    ANIMAL_OUTS O
+LEFT JOIN
+    ANIMAL_INS I ON O.ANIMAL_ID = I.ANIMAL_ID
+WHERE
+    I.ANIMAL_ID IS NULL
+ORDER BY 
+    O.ANIMAL_ID;
