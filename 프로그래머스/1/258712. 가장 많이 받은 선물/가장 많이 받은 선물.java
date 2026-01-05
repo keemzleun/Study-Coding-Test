@@ -1,43 +1,48 @@
-import java.util.HashMap;
+import java.util.*;
 
 class Solution {
     public int solution(String[] friends, String[] gifts) {
-        int answer = 0;
-        int friendsLenght = friends.length;
-        HashMap<String, Integer> dic = new HashMap<>();
-        int[] giftDegree = new int[friendsLenght];
-        int[][] giftGraph = new int[friendsLenght][friendsLenght];
+        int f_len = friends.length;
+        int[][] record = new int[f_len][f_len];
         
-        for ( int i = 0; i < friendsLenght; i++ ) {
-            dic.put(friends[i], i);
+        HashMap<String, Integer> map = new HashMap<>();
+        int index = 0;
+        for (String friend : friends){
+            map.put(friend, index);
+            index++;
         }
         
-        for ( String gift : gifts ) {
-            String[] giftName = gift.split(" ");
-            giftDegree[dic.get(giftName[0])]++;
-            giftDegree[dic.get(giftName[1])]--;
-            giftGraph[dic.get(giftName[0])][dic.get(giftName[1])]++;    
+        for(int i=0; i<gifts.length; i++){
+            String[] splits = gifts[i].split(" ");
+            String giver = splits[0];
+            String reciver = splits[1];
+            
+            int g_num = map.get(giver);
+            int r_num = map.get(reciver);
+            record[g_num][r_num]++; // 주고 받은 기록
+            record[g_num][g_num]++; // 선물 지수
+            record[r_num][r_num]--; // 선물 지수  
         }
         
-        for ( int i =0; i< friendsLenght; i++) {
-            int num = 0;
-            for ( int j = 0; j< friendsLenght; j++) {
-                if ( i == j) {
-                    continue;
-                }    
-                
-                if (giftGraph[i][j] > giftGraph[j][i] ||
-                     (giftGraph[i][j] == giftGraph[j][i] && giftDegree[i] > giftDegree[j])) {
-                        num++;
+        int maxGifts = 0;
+        for (int i = 0; i < f_len; i++) {
+            int currentFrientGifts = 0;
+            for (int j = 0; j < f_len; j++) {
+                if (i == j) continue;
+
+                // 1. 주고받은 횟수 비교
+                if (record[i][j] > record[j][i]) {
+                    currentFrientGifts++;
+                } 
+                // 2. 횟수가 같거나 기록이 없는 경우 (0으로 같음)
+                else if (record[i][j] == record[j][i]) {
+                    if (record[i][i] > record[j][j]) {
+                        currentFrientGifts++;
                     }
+                }
             }
-            
-            if ( answer < num) {
-                answer = num;
-            }
-            
+            maxGifts = Math.max(maxGifts, currentFrientGifts);
         }
-        
-        return answer;
+        return maxGifts;
     }
 }
