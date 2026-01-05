@@ -1,0 +1,12 @@
+-- 코드를 입력하세요
+SELECT
+    I.ANIMAL_ID,
+    I.NAME
+FROM
+    ANIMAL_INS I
+JOIN
+    ANIMAL_OUTS O ON I.ANIMAL_ID = O.ANIMAL_ID
+WHERE
+    O.DATETIME < I.DATETIME -- 입양일이 보호 시작일보다 이전인 경우
+ORDER BY
+    I.DATETIME ASC;
