@@ -28,7 +28,7 @@ class Solution {
         queue.add(new int[]{x, y});
         
         while(!queue.isEmpty()){
-            int[] current = queue.remove();
+            int[] current = queue.poll();
             int cX = current[0];
             int cY = current[1];
             
