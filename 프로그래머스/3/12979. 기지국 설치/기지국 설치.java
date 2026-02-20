@@ -2,27 +2,20 @@ class Solution {
     public int solution(int n, int[] stations, int w) {
         int answer = 0;
         int now = 1;
-        int range = 2 * w + 1;
-        
+        int dis = w * 2 + 1;
         for (int s : stations){
             int left = s - w;
-            
-            if (now < left){
-                int gap = left - now;
-                
-                answer += gap / range;
-                if (gap % range != 0) answer++;
+            if (left > now){
+                answer += (left - now) / dis;
+                if ((left - now) % dis != 0) answer++;
             }
-            
             now = s + w + 1;
         }
-        
-        if (now <= n){
-            int gap = n - now + 1;
-            answer += gap / range;
-            if (gap % range != 0) answer++;
-        }
 
+        if (n >= now){
+            answer += (n - now + 1) / dis;
+            if ((n - now + 1) % dis != 0) answer++;
+        }
         return answer;
     }
 }
