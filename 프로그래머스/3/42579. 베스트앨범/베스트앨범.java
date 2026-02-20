@@ -1,40 +1,49 @@
 import java.util.*;
 
 class Solution {
+    class Music {
+        int id, play;
+        Music(int id, int play){
+            this.id = id;
+            this.play = play;
+        }
+    }
     public int[] solution(String[] genres, int[] plays) {
-        Map<String, Integer> genreTotalPlays = new HashMap<>();
-        Map<String, List<Song>> genreSongs = new HashMap<>();
+        Map<String, Integer> totalMap = new HashMap<>();
+        Map<String, List<Music>> musicMap = new HashMap<>();
         
-        for (int i = 0; i < genres.length; i++) {
-            genreTotalPlays.put(genres[i], genreTotalPlays.getOrDefault(genres[i], 0) + plays[i]);
+        for (int i=0; i<genres.length; i++){
+            // 장르별 총합
+            totalMap.put(genres[i], totalMap.getOrDefault(genres[i], 0) + plays[i]);
             
-            genreSongs.computeIfAbsent(genres[i], k -> new ArrayList<>()).add(new Song(i, plays[i]));
+            // 노래 정보들
+            musicMap.putIfAbsent(genres[i], new ArrayList<>());
+            musicMap.get(genres[i]).add(new Music(i, plays[i]));
         }
         
-        List<String> sortedGenres = new ArrayList<>(genreTotalPlays.keySet());
-        sortedGenres.sort((a, b) -> genreTotalPlays.get(b) - genreTotalPlays.get(a));
+        List<String> sortedGenres = new ArrayList<>(totalMap.keySet());
+        sortedGenres.sort((a, b) -> totalMap.get(b) - totalMap.get(a));
         
         List<Integer> result = new ArrayList<>();
         
-        for (String genre : sortedGenres) {
-            List<Song> songs = genreSongs.get(genre);
-            songs.sort((a, b) -> b.plays - a.plays); // 재생 수 기준 내림차순
+        for (String g : sortedGenres){
+            List<Music> list = musicMap.get(g);
             
-            for (int i = 0; i < Math.min(2, songs.size()); i++) {
-                result.add(songs.get(i).index);
+            list.sort((a, b) -> {
+                // 플레이수가 같으면 id 오름차순
+                if (a.play == b.play) return a.id - b.id;
+                // 플레이수로 내림차순
+                return b.play - a.play;
+            });
+            
+            result.add(list.get(0).id);
+            if (list.size() > 1){
+                result.add(list.get(1).id);
             }
         }
         
-        return result.stream().mapToInt(i -> i).toArray();
-    }
-}
-
-class Song {
-    int index;
-    int plays;
-    
-    Song(int index, int plays) {
-        this.index = index;
-        this.plays = plays;
+        
+        
+        return result.stream().mapToInt(i->i).toArray();
     }
 }
