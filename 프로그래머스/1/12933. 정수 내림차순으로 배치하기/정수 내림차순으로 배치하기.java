@@ -3,14 +3,16 @@ import java.util.*;
 class Solution {
     public long solution(long n) {
         long answer = 0;
-        String[] stArr = String.valueOf(n).split("");
+        char[] arr = String.valueOf(n).toCharArray();
         
-        Arrays.sort(stArr);
+        Arrays.sort(arr);
         
-        String result = "";
-        for (int i = stArr.length - 1; i >= 0; i--){
-            result += stArr[i];
+        StringBuilder sb = new StringBuilder();
+        for (int i = arr.length - 1; i >= 0; i--){
+            sb.append(arr[i]);
         }
+        
+        String result = sb.toString();
         return Long.parseLong(result);
     }
 }
